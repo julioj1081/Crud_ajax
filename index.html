@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Crud tabla</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      //obtener los datos
+      $(document).ready(function(){
+        function obtener_datos(){
+          $.ajax({
+            url: "mostrardatos.php",
+            method: "POST",
+            success: function(data){
+              $("#result").html(data)
+            }
+          })
+        }
+
+        obtener_datos();
+
+        //Agregando datos
+        $(document).on("click", "#add", function(){
+          var nombre_add = $("#nombre_add").text();
+          var apellido_add = $("#apellido_add").text();
+          $.ajax({
+            url: "insertar.php",
+            method: "POST",
+            data: {nombre: nombre_add, apellido: apellido_add},
+            success: function(data){
+              obtener_datos();
+              alert(data);
+            }
+          })
+        });
+
+        /*Actualizando datos cuando salgamos de la tabla*/
+        $(document).on("blur", "#nombre_usuario", function(){
+          var id = $(this).data("id_usuario");
+          var nombre = $(this).text();
+          actualizar_datos(id, nombre, "nombre")
+        });
+
+        $(document).on("blur", "#apellido_usuario", function(){
+          var id = $(this).data("id_apellido");
+          var apellido = $(this).text();
+          actualizar_datos(id, apellido, "apellido")
+          //alert(apellido)
+        });
+
+        /*CREAMOS LA FUNCION */
+        function actualizar_datos(id, texto, columna){
+          $.ajax({
+            url: "actualizar.php",
+            method: "POST",
+            data: {id: id, texto: texto, columna: columna},
+            success: function(data){
+              obtener_datos();
+              //alert(data);
+            }
+          })
+        }
+
+        /*ELIMINAR DATOS*/
+        $(document).on("click","#eliminar", function(){
+          if(confirm("Estas seguro de eliminar este registro")){
+            var id = $(this).data("id");
+            $.ajax({
+              url: "eliminar.php",
+              method: "POST",
+              data: {id: id},
+              success: function(data){
+                obtener_datos();
+                alert(data);
+              }
+            })
+          }
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+    <div id="result"></div>
+    </div>
+  </body>
+</html>

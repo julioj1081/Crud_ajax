@@ -1,0 +1,43 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+table{
+  width: 700px;
+  margin: 100px auto;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: arial;
+  border-collapse: collapse;
+  box-shadow: 0 0 1px #ccc;
+}
+table tr td, th{
+  padding: 5px 10px;
+  border: 1px solid #eee;
+}
+table button{
+    border:none;
+    box-shadow: 0 0 1px #000;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 20%;
+    cursor: pointer;
+}
+table #add{
+  background-color: #0090c0;
+  color: white;
+}
+table td{
+  transition: all 0.5s;
+  -webkit-width: all 0.5s;
+  -moz-width: all 0.5s;
+  -ms-width: all 0.5s;
+  -o-width: all 0.5s;
+  width: all 0.5s;
+}
+table td:focus{
+  background-color: #0090c0;
+  color: white;
+  transform: translateY(-40px) rotateX(360deg);
+}
